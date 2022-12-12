@@ -168,12 +168,12 @@ else{
             <label id="lab">Select Courses:</label>
         </div>
         <div class="col-90">
-            <select id="course" name="course[]" size="4" multiple <?php if (isset($course)) echo "checked";?>>
-                <option value="PHP">PHP</option>
-                <option value="Java Script">Java Script</option>
-                <option value="MySQL">MySQL</option>
-                <option value="HTML">HTML</option>
-                <option value="presentation">presentation</option>
+            <select id="course" name="course[]" size="4" multiple>
+                <option value="PHP" <?php if (isset($course) && $course=="PHP") echo ' selected="selected"'; ?>>PHP</option>
+                <option value="Java Script" <?php if (isset($course) && $course=="Java Script") echo ' selected="selected"'; ?>>Java Script</option>
+                <option value="MySQL" <?php if (isset($course) && $course=="MYSQL") echo ' selected="selected"'; ?>>MySQL</option>
+                <option value="HTML" <?php if (isset($course) && $course=="HTML") echo ' selected="selected"'; ?>>HTML</option>
+                <option value="presentation" <?php if (isset($course) && $course=="Presentation") echo ' selected="selected"'; ?>>presentation</option>
         </select>
         </div>
     </div>
