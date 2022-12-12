@@ -59,7 +59,8 @@
 
 <?php 
 $nameErr=$emailErr=$genderErr=$agreeErr="";
-$name=$email=$gender=$agree="";
+$name=$email=$gender=$agree=$group=$details=$course="";
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
      if(empty($_POST["name"])){
         $nameErr="Name is required";
     }
@@ -90,6 +91,25 @@ $name=$email=$gender=$agree="";
         else{
             $agree=$_POST["agree"];
         }
+        if (empty($_POST["group"])) {
+            $group = "";
+          } else {
+            $group = $_POST["group"];
+    }
+    if (empty($_POST["details"])) {
+        $details = "";
+      } else {
+        $details = $_POST["details"];
+}
+if(!empty($_POST["course"])){
+    foreach ($_POST['course'] as $course)
+    echo "$course ";
+
+}
+else{
+    $course="";
+}
+}
     
 ?>
 
@@ -103,7 +123,8 @@ $name=$email=$gender=$agree="";
             <label id="lab">Name: </label>
         </div>
         <div class="col-90">
-            <input type="text" name="name"><label style="color:red"> * </label><span class="error"><?php echo $nameErr ?></span>
+         <input type="text" name="name" value="<?php echo $name;?>">
+  <span class="error">* <?php echo $nameErr;?></span>
         </div>
     </div>
     <div class="row">
@@ -111,7 +132,8 @@ $name=$email=$gender=$agree="";
             <label id="lab">Email:</label>
         </div>
         <div class="col-90">
-            <input type="text" name="email"><label style="color:red"> *</label><span class="error"><?php echo $emailErr ?></span>
+        <input type="text" name="email" value="<?php echo $email;?>">
+  <span class="error">* <?php echo $emailErr;?></span>
         </div>
     </div>
     <div class="row">
@@ -119,7 +141,7 @@ $name=$email=$gender=$agree="";
             <label id="lab">Group:</label>
         </div>
         <div class="col-90">
-            <input type="number" name="group">
+            <input type="number" name="group" value="<?php echo $group;?>">
         </div>
     </div>
     <div class="row">
@@ -127,7 +149,7 @@ $name=$email=$gender=$agree="";
             <label id="lab">Class details:</label>
         </div>
         <div class="col-90">
-            <textarea name="details"></textarea>
+            <textarea name="details" ><?php echo $details;?></textarea>
         </div>
     </div>
     <div class="row">
@@ -135,9 +157,9 @@ $name=$email=$gender=$agree="";
             <label id="lab">Gender:</label>
         </div>
         <div class="col-90">
-            <input type="radio" name="gender"  value="female" >
+            <input type="radio" name="gender" <?php if (isset($gender) && $gender=="female") echo "checked";?> value="female" >
             <label>Female</label>
-            <input type="radio" name="gender" value="male">
+            <input type="radio" name="gender" <?php if (isset($gender) && $gender=="male") echo "checked";?> value="male">
             <label>Male</label><label style="color:red"> *</label><span class="error"><?php echo $genderErr ?></span>
         </div>
     </div>
@@ -146,7 +168,7 @@ $name=$email=$gender=$agree="";
             <label id="lab">Select Courses:</label>
         </div>
         <div class="col-90">
-            <select id="course" name="course[]" size="4" multiple>
+            <select id="course" name="course[]" size="4" multiple <?php if (isset($course)) echo "checked";?>>
                 <option value="PHP">PHP</option>
                 <option value="Java Script">Java Script</option>
                 <option value="MySQL">MySQL</option>
@@ -160,7 +182,8 @@ $name=$email=$gender=$agree="";
             <label id="lab">Agree:</label>
         </div>
         <div class="col-90">
-            <input type="checkbox" name="agree" ><label style="color:red"> *</label><span class="error"><?php echo $agreeErr ?></span>
+            <input type="checkbox" name="agree" <?php if (isset($agree)) echo "checked";?>>
+  <span class="error">* <?php echo $agreeErr;?></span>
         </div>
     </div>
     
@@ -177,28 +200,22 @@ $name=$email=$gender=$agree="";
 if(!isset($_POST["submit"])){
     echo "<h1>Your given values are as: </h1><br>";
     echo "Name: ";
-if($nameErr=="")
-{
-    echo $name;
-}
+        echo $name;  
 echo "<br>Email: ";
-if($emailErr==""){
     echo $email;
-}
 echo "<br>Group: ";
-    echo $_POST["group"];
+    echo $group;
     echo "<br>Class details: ";
-    echo $_POST["details"];
+    echo $details;
     echo "<br>Gender: ";
-    if($genderErr==""){
     echo $gender;
-}
+
     echo "<br>Your courses are: ";
     if(!empty($_POST["course"])){
     foreach ($_POST['course'] as $course)
     echo "$course ";
-}
-}
 
+}
+}
 ?>
 
