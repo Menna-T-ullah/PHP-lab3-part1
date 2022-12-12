@@ -71,7 +71,6 @@ $name=$email=$gender=$agree="";
     }
     if(empty($_POST["email"])){
         $emailErr="Email is required";
-        echo $emailErr;
     }
     else{
         $email=$_POST["email"];
@@ -176,21 +175,30 @@ $name=$email=$gender=$agree="";
 </html>
 <?php 
 if(!isset($_POST["submit"])){
-if($nameErr=="" && $emailErr=="" && $genderErr=="" && $agreeErr=="")
-{
-       
     echo "<h1>Your given values are as: </h1><br>";
-    echo "Name: ".$name;
-    echo "<br>Email: ".$email;
-    echo "<br>Group: ".$_POST["group"];
-    echo "<br>Class details: ".$_POST["details"];
-    echo "<br>Gender: ".$gender;
+    echo "Name: ";
+if($nameErr=="")
+{
+    echo $name;
+}
+echo "<br>Email: ";
+if($emailErr==""){
+    echo $email;
+}
+echo "<br>Group: ";
+    echo $_POST["group"];
+    echo "<br>Class details: ";
+    echo $_POST["details"];
+    echo "<br>Gender: ";
+    if($genderErr==""){
+    echo $gender;
+}
     echo "<br>Your courses are: ";
     if(!empty($_POST["course"])){
     foreach ($_POST['course'] as $course)
     echo "$course ";
 }
 }
-}
+
 ?>
 
